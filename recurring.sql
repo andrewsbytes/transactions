@@ -1,0 +1,37 @@
+\COPY (select description, category, amount_sum, amount_avg, transactions, months, years from (select category, description, sum(amount) amount_sum, avg(amount) amount_avg, count(*) transactions, count(distinct extract('month' from date)) months, count(distinct extract('year' from date)) years from tx_transactions where transaction_type = 'debit' and extract('year' from date) in (2017,2018) group by 1,2 order by months desc ) t ) TO '/home/andrew/code/transactions/recurring.csv'DELIMITER ','HEADER QUOTE '"'CSV ;
+
+-- \COPY (
+--   select
+--     description,
+--     category,
+--     -- to_char(amount_sum,'999,999,999') amount_sum,
+--     -- to_char(amount_avg,'999,999,999') amount_avg,
+--     amount_sum,
+--     amount_avg,
+--     transactions,
+--     months,
+--     years
+--   from (
+--     select
+--       category,
+--       description,
+--       sum(amount) amount_sum,
+--       avg(amount) amount_avg,
+--       count(*) transactions,
+--       count(distinct extract('month' from date)) months,
+--       count(distinct extract('year' from date)) years
+--     from
+--       tx_transactions
+--     where
+--       transaction_type = 'debit' and
+--       extract('year' from date) in (2017,2018)
+--     group by 1,2
+--     order by months desc
+--   ) t
+-- )
+-- TO '/home/andrew/code/transactions/recurring.csv'
+-- DELIMITER ','
+-- HEADER
+-- QUOTE '"'
+-- CSV
+-- ;
