@@ -17,14 +17,14 @@ def to_date(date):
 
 def main():
 
-  balance = 700
+  balance = 3000
 
   # Read transactions
   with open('recurring.json') as f:
     recurring = loads(f.read())
 
   # Prepare forecaster
-  dates = date_range('2018-08-20', '2018-12-31')
+  dates = date_range('2018-08-26', '2018-12-31')
   transactions = dict()
 
   # Compute debits, credits, and balances per date
